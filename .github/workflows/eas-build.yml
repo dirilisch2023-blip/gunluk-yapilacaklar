@@ -10,10 +10,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
-      - run: npm install
-      - run: npm install -g eas-cli
-      - run: eas build --profile preview --platform android --non-interactive
+          node-version: 22
+      - name: Bağımlılıkları yükle
+        run: npm install --legacy-peer-deps
+      - name: EAS CLI kur
+        run: npm install -g eas-cli
+      - name: Android APK oluştur
+        run: eas build --profile preview --platform android --non-interactive
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
